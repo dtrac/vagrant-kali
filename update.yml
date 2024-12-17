@@ -1,0 +1,17 @@
+---
+- name: Ensure Kali system is up to date
+  hosts: all
+  become: true  # Run tasks as a privileged user (sudo)
+  gather_facts: true
+  tasks:
+
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600  # Cache is valid for 1 hour
+
+    - name: Upgrade all packages to the latest version
+      apt:
+        upgrade: dist  # Equivalent to 'apt full-upgrade'
+        autoremove: yes  # Remove unused dependencies
+        autoclean: yes   # Clean up old cached packages
